@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="SpendWise is a personal expense tracker and monthly budget planner.">
+  <title>SpendWise — Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">S</span><span>SpendWise</span></a>
+    <p class="nav-label">WORKSPACE</p>
+    <a class="nav-item active" href="#dashboard">▦ &nbsp; Overview</a>
+    <a class="nav-item" href="#transactions">↕ &nbsp; Transactions</a>
+    <a class="nav-item" href="#budget-card">◷ &nbsp; Budgets</a>
+    <div class="sidebar-bottom"><div class="privacy-note">🔒 <div><strong>Your data stays local</strong><small>Saved in this browser</small></div></div><p class="side-footer">Spend smarter, live better.</p></div>
+  </aside>
+  <main class="main-content" id="dashboard">
+    <header class="topbar"><div><p class="eyebrow">PERSONAL FINANCE</p><h1>Overview</h1><p class="subheading">Here's how your money is looking.</p></div><button class="primary-btn" id="open-expense">＋ Add expense</button></header>
+    <section class="summary-grid">
+      <article class="summary-card balance-card"><div class="card-top"><span>Total spent this month</span><span class="icon-bubble">₹</span></div><p class="metric" id="total-spent">₹0</p><p class="card-foot">Across all categories</p></article>
+      <article class="summary-card"><div class="card-top"><span>Monthly budget</span><span class="icon-bubble">▤</span></div><p class="metric" id="budget-value">₹15,000</p><p class="card-foot">Your spending limit</p></article>
+      <article class="summary-card"><div class="card-top"><span>Budget remaining</span><span class="icon-bubble green">↗</span></div><p class="metric" id="remaining-value">₹15,000</p><p class="card-foot" id="remaining-caption">Ready for the month</p></article>
+    </section>
+    <section class="content-grid">
+      <article class="panel" id="budget-card"><div class="panel-heading"><div><h2>Monthly budget</h2><p>Keep your spending on track</p></div><button class="text-btn" id="edit-budget">Edit budget</button></div><div class="budget-row"><div><span class="muted">Used so far</span><strong id="budget-used">₹0</strong></div><strong id="budget-percent">0%</strong></div><div class="progress-track"><div class="progress-bar" id="budget-progress"></div></div><div class="budget-legend"><span><i class="dot spent-dot"></i>Spent</span><span><i class="dot remaining-dot"></i>Remaining</span></div><div class="budget-tip" id="budget-tip">✨ Add your first expense to see your budget insights.</div></article>
+      <article class="panel"><div class="panel-heading"><div><h2>Spending by category</h2><p>Where your money goes</p></div></div><div class="category-list" id="category-list"><p class="empty-inline">Your category breakdown will appear here.</p></div></article>
+    </section>
+    <section class="panel transactions-panel" id="transactions"><div class="panel-heading"><div><h2>Recent transactions</h2><p>Your latest expenses at a glance</p></div><label class="filter-wrap"><span class="sr-only">Filter transactions</span><select id="category-filter"><option value="all">All categories</option><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Other</option></select></label></div>
+      <div class="table-wrap"><table><thead><tr><th>Expense</th><th>Category</th><th>Date</th><th class="amount-col">Amount</th><th><span class="sr-only">Actions</span></th></tr></thead><tbody id="transaction-list"></tbody></table></div>
+      <div class="empty-state visible" id="empty-state"><div class="empty-icon">＋</div><h3>No expenses yet</h3><p>Add an expense to start understanding your spending.</p><button class="secondary-btn" id="empty-add">Add your first expense</button></div>
+    </section>
+    <footer class="page-footer">Made with care by SpendWise · Your finances, your control.</footer>
+  </main>
+</div>
+<dialog id="expense-dialog" class="modal"><form id="expense-form"><div class="modal-heading"><div><p class="eyebrow">TRANSACTION</p><h2>Add an expense</h2></div><button type="button" class="close-btn" id="close-expense" aria-label="Close">×</button></div>
+<label for="expense-title">What did you spend on?</label><input id="expense-title" maxlength="70" placeholder="e.g. Lunch with friends" required>
+<div class="form-row"><div><label for="expense-amount">Amount (₹)</label><input id="expense-amount" type="number" min="0.01" max="100000000" step="0.01" placeholder="250.00" required></div><div><label for="expense-category">Category</label><select id="expense-category"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Education</option><option>Other</option></select></div></div>
+<label for="expense-date">Date</label><input id="expense-date" type="date" required><p class="form-error" id="form-error" role="alert"></p><button type="submit" class="primary-btn full-btn">Save expense</button></form></dialog>
+<dialog id="budget-dialog" class="modal"><form id="budget-form"><div class="modal-heading"><div><p class="eyebrow">YOUR PLAN</p><h2>Set monthly budget</h2></div><button type="button" class="close-btn" id="close-budget" aria-label="Close">×</button></div><p class="modal-copy">Choose the total amount you want to spend each month.</p><label for="budget-input">Monthly budget (₹)</label><input id="budget-input" type="number" min="1" max="100000000" step="1" required><button type="submit" class="primary-btn full-btn">Save budget</button></form></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body></html>
